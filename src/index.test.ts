@@ -5,7 +5,7 @@ import App from './Router'
 describe(
     'GET /',
     ()=>{
-        var app:App
+		let app:App        
 
         beforeAll(
             ()=>{
