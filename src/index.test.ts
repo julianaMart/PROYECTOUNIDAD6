@@ -1,11 +1,11 @@
 
-import { Request } from 'supertest'
+import  request  from 'supertest'
 import App from './Router'
 
 describe(
     'GET /',
     ()=>{
-        let app:App
+        var app:App
 
         beforeAll(
             ()=>{
@@ -15,7 +15,9 @@ describe(
         )
 
         afterAll(
+            ()=>{
             app.close()
+            }
         )
 
         test(
