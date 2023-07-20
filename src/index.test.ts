@@ -1,6 +1,7 @@
 
 import  request  from 'supertest'
-import App from './Router'
+import App from './App'
+
 
 describe(
     'GET /',
