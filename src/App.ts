@@ -1,8 +1,8 @@
 import express,{Application,Request,Response} from 'express'
 import swaggerUi from 'swagger-ui-express'
 import { swaggerSpec } from './swagger.conf'
-import {PrismaClient} from '@prisma/client'
 
+import PacienteRouter from './routes/PacienteRouter'
 /**
  * Clase principal de la API, Define las rutas de la API
  * 
@@ -13,7 +13,7 @@ class App{
 	//Atributos
 	public app:any
 	private server:any
-	private prismaClient:PrismaClient
+	
 
 	constructor(){
 		this.app=express()
@@ -23,43 +23,13 @@ class App{
 			swaggerUi.serve,
 			swaggerUi.setup(swaggerSpec)
 		)
-		this.prismaClient=new PrismaClient()
+		//this.prismaClient=new PrismaClient()
 		this.routes()
 	}
 
 	private routes():void{
-		
-		
-		this.app.post(
-			'/crear_paciente',
-			(req: Request,res: Response)=>{
-				try{
-				const {cedula,
-					nombre,
-					apellido,
-					fecha,
-					telefono
-				}=req.body
 
-				const fechaNacimiento=new Date(fecha)
-				const paciente=this.prismaClient.paciente.create(
-					{
-						data:{
-							cedula,
-							nombre,
-							apellido,
-							fechaNacimiento,
-							telefono
-						}
-					}
-				)
-				res.json(paciente)
-				}catch(e:any){
-					res.status(400)
-					res.json({error:e.message})
-				}
-			}
-		)
+		this.app.use('/',PacienteRouter)
 	}
 
 	public start():void{
